@@ -1,6 +1,7 @@
 <?php
 require 'includes/db.php';
 
+$conn = getDB();
 $sql = "SELECT * 
         FROM blogs
         ORDER BY Published_at;";

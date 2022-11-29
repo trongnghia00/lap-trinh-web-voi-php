@@ -1,6 +1,7 @@
 <?php
 require 'includes/db.php';
 
+$conn = getDB();
 $sql = "SELECT * 
         FROM blogs
         WHERE Id = " . $_GET["id"];
