@@ -35,7 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
             if (mysqli_stmt_execute($stmt)) {
                 $id = mysqli_insert_id($conn);
-                echo "Inserted record with ID: $id";
+                // echo "Inserted record with ID: $id";
+                                
+                header("Location: article.php?id=$id");
+                exit;
             } else {
                 echo mysqli_stmt_error($stmt);
             }
