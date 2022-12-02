@@ -1,16 +1,13 @@
 <?php
 require 'includes/db.php';
+require 'includes/getArticle.php';
 
 $conn = getDB();
-$sql = "SELECT * 
-        FROM blogs
-        WHERE Id = " . $_GET["id"];
-$results = mysqli_query($conn, $sql);
-if ($results === false) {
-    echo mysqli_error($conn);
-}
-else {
-    $article = mysqli_fetch_assoc($results);
+
+if (isset($_GET['id'])) {
+    $article = getArticle($conn, $_GET['id']);
+} else {
+    $article = null;
 }
 ?>
 
