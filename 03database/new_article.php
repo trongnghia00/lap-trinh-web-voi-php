@@ -1,21 +1,28 @@
 <?php
 require 'includes/db.php';
 $errors = [];
+$title = '';
+$content = '';
+$published_at = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["Title"] == '') {
+    $title = $_POST["Title"];
+    $content = $_POST["Content"];
+    $published_at = $_POST["Published_at"];
+
+    if ($title == '') {
         $errors[] = 'Title is required';
     }
-    if ($_POST["Content"] == '') {
+    if ($content == '') {
         $errors[] = 'Content is required';
     }
-    if ($_POST["Published_at"] == '') {
+    if ($published_at == '') {
         $errors[] = 'Published_at is required';
     }
 
     if (empty($errors)) {
         $conn = getDB();
-        $datetime = date("Y-m-d H:i:s", strtotime($_POST["Published_at"]));
+        $datetime = date("Y-m-d H:i:s", strtotime($published_at));
         $sql = "INSERT INTO blogs(Title, Content, Published_at) 
                 VALUES (?, ?, ?);";
         $stmt = mysqli_prepare($conn, $sql);
@@ -24,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo mysqli_error($conn);
         }
         else {
-            mysqli_stmt_bind_param($stmt, "sss", $_POST["Title"], $_POST["Content"], $datetime);
+            mysqli_stmt_bind_param($stmt, "sss", $title, $content, $datetime);
     
             if (mysqli_stmt_execute($stmt)) {
                 $id = mysqli_insert_id($conn);
@@ -53,15 +60,15 @@ if (! empty($errors)): ?>
 <form method="post">
     <div>
         <label for="Title">Title</label>
-        <input name="Title" id="title" placeholder="Article Title" />
+        <input name="Title" id="title" placeholder="Article Title" value="<?= htmlspecialchars($title); ?>" />
     </div>
     <div>
         <label for="Content">Content</label>
-        <textarea name="Content" rows="4" cols="40" id="content" placeholder="Article Content"></textarea>
+        <textarea name="Content" rows="4" cols="40" id="content" placeholder="Article Content"><?= htmlspecialchars($content); ?></textarea>
     </div>
     <div>
         <label for="Published_at">Published at</label>
-        <input type="datetime-local" name="Published_at" id="published_at" />
+        <input type="datetime-local" name="Published_at" id="published_at" value="<?= $published_at ?>"/>
     </div>
     <button type="submit">Add</button>
 </form>

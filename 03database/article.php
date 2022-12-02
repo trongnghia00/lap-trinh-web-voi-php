@@ -20,8 +20,8 @@ else {
     <p>Article not found.</p>
 <?php else: ?>
     <article>
-        <h2><?= $article["Title"]; ?></h2>
-        <p><?= $article["Content"] ?></p>
+        <h2><?= htmlspecialchars($article["Title"]); ?></h2>
+        <p><?= htmlspecialchars($article["Content"]); ?></p>
     </article>
 <?php endif; ?>
 

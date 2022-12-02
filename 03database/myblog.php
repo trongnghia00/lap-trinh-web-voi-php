@@ -24,8 +24,8 @@ else {
         <?php foreach ($articles as $article): ?>
             <li>
                 <article>
-                    <h2><a href="article.php?id=<?= $article["Id"]; ?>"><?= $article['Title'] ?></a></h2>
-                    <p><?= $article['Content'] ?></p>
+                    <h2><a href="article.php?id=<?= htmlspecialchars($article["Id"]); ?>"><?= $article['Title'] ?></a></h2>
+                    <p><?= htmlspecialchars($article['Content']); ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
