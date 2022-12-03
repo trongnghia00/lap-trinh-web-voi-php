@@ -1,6 +1,6 @@
 <?php
 require 'includes/db.php';
-require 'includes/getArticle.php';
+require 'includes/article.php';
 
 $conn = getDB();
 

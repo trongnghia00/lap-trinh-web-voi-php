@@ -1,6 +1,6 @@
 <?php
 require 'includes/db.php';
-require 'includes/getArticle.php';
+require 'includes/article.php';
 
 $conn = getDB();
 
@@ -17,6 +17,18 @@ if (isset($_GET['id'])) {
 
 } else {
     die("id not supplied, article not found");
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = $_POST["Title"];
+    $content = $_POST["Content"];
+    $published_at = $_POST["Published_at"];
+
+    $errors = validateArticle($title, $content, $published_at);
+
+    if (empty($errors)) {
+        die('Form is valid');
+    }
 }
 
 ?>

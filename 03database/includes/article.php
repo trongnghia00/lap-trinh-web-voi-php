@@ -24,4 +24,27 @@ function getArticle($conn, $id) {
     }
 }
 
+/**
+ * Validate the article properties
+ * 
+ * @param string $title Title
+ * @param string $content Content
+ * @param string $published_at Publised date and time
+ * 
+ * @return array An array of error messages
+ */
+function validateArticle($title, $content, $published_at) {
+    $errors = [];
+    if ($title == '') {
+        $errors[] = 'Title is required';
+    }
+    if ($content == '') {
+        $errors[] = 'Content is required';
+    }
+    if ($published_at == '') {
+        $errors[] = 'Published_at is required';
+    }
+    return $errors;
+}
+
 ?>
