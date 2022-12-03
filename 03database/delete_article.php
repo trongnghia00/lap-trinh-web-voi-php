@@ -5,7 +5,7 @@ require 'includes/article.php';
 $conn = getDB();
 
 if (isset($_GET['id'])) {
-    $article = getArticle($conn, $_GET['id']);
+    $article = getArticle($conn, $_GET['id'], "Id");
     if ($article) {
         $id = $_GET['id'];
     } else {

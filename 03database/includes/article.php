@@ -3,11 +3,12 @@
  * Get article based on ID
  * @param object $conn Connection to DB
  * @param integer $id the article ID
+ * @param string $columns Optional list of columns, default: *
  * 
  * @return mixed An array contain article, null if not found
  */
-function getArticle($conn, $id) {
-    $sql = "SELECT * 
+function getArticle($conn, $id, $columns='*') {
+    $sql = "SELECT $columns 
         FROM blogs
         WHERE Id = ?";
     $stmt = mysqli_prepare($conn, $sql);
