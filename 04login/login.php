@@ -3,6 +3,7 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST['username'] == 'nghia' && $_POST['password'] == 'secret')  {
+        session_regenerate_id(true);
         $_SESSION['logged_in'] = true;
         header("Location: myblog.php");
     } else {
