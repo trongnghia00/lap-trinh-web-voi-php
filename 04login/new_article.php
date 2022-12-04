@@ -1,6 +1,13 @@
 <?php
 require 'includes/db.php';
 require 'includes/article.php';
+require 'includes/auth.php';
+
+session_start();
+
+if (! isLoggedIn()) {
+    die('Unauthorised');
+}
 
 $errors = [];
 $title = '';

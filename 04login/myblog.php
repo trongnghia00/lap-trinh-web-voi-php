@@ -1,5 +1,6 @@
 <?php
 require 'includes/db.php';
+require 'includes/auth.php';
 session_start();
 $conn = getDB();
 $sql = "SELECT * 
@@ -17,14 +18,13 @@ else {
 <?php require 'includes/header.php'; ?>
 
 <?php
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']):
+if (isLoggedIn()):
 ?>
     <p>You are logged in. <a href="logout.php">Logout</a></p>
+    <a href="new_article.php">New Article</a>
 <?php else: ?>
     <p>You are not logged in. <a href="login.php">Login</a></p>
 <?php endif; ?>
-
-<a href="new_article.php">New Article</a>
 
 <?php if (empty($articles)): ?>
     <p>No articles found.</p>
