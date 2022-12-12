@@ -2,9 +2,10 @@
 require 'Item.php';
 
 $my_item = new Item();
-var_dump($my_item);
-echo "<br />";
+$my_item->name = "Example";
+$my_item->description = "new description";
+$my_item->price = 10;
 
-$item2 = new Item();
-var_dump($item2);
+var_dump($my_item);
+
 ?>
