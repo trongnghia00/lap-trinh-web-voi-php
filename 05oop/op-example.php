@@ -2,10 +2,9 @@
 require 'Item.php';
 
 $my_item = new Item();
-$my_item->name = "Example";
-$my_item->description = "new description";
-$my_item->price = 10;
+$my_item->name = 'Nghia';
 
-var_dump($my_item);
+$item2 = new Item();
+$item2->name = "Trong";
 
-?>
+echo $my_item->getName() . " " . $item2->getName();
