@@ -1,19 +1,19 @@
 <?php
 class Item {
-    public $name;
+    private $name;
     public $description = "default value";
 
-    function __construct($name, $description)
+    public function __construct($name, $description)
     {
         $this->name = $name;
         $this->description = $description;
     }
 
-    function sayHello() {
+    public function sayHello() {
         echo "Hello !";
     }
 
-    function getName() {
+    public function getName() {
         return $this->name;
     }
 }
