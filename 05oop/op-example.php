@@ -1,22 +1,18 @@
 <?php
 require 'Item.php';
+require 'Book.php';
 
-Item::showCount();
+$my_item = new Item();
 
-$my_item = new Item("Table", "A round table");
-
-Item::showCount();
-
-$my_item->name = "A new table";
-
-$item2 = new Item("Car", "A toy");
-
-Item::showCount();
+$my_item->name = "Table";
 
 echo $my_item->getName();
 
 echo "<br />";
 
-define("MAX", 100);
+$my_book = new Book();
 
-echo Item::MAX;
+$my_book->name = "Learning Python";
+$my_book->author = "Trong Nghia";
+
+echo $my_book->getName();
