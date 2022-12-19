@@ -1,9 +1,16 @@
 <?php
 require 'Item.php';
 
-$my_item = new Item();
+Item::showCount();
 
-$my_item->setName("Table");
-$my_item->setDescription("A round table");
+$my_item = new Item("Table", "A round table");
+
+Item::showCount();
+
+$my_item->name = "A new table";
+
+$item2 = new Item("Car", "A toy");
+
+Item::showCount();
 
 echo $my_item->getName();
