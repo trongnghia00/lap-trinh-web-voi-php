@@ -1,5 +1,7 @@
 <?php
 class Item {
+    public const MAX = 100;
+
     public $name;
     public $description = 'This is the default.';
 
