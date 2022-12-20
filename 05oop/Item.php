@@ -3,6 +3,6 @@ class Item {
     public $name;
 
     public function getName() {
-        return $this->name;
+        return "Item: " . $this->name;
     }
 }
