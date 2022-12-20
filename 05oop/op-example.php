@@ -6,7 +6,7 @@ $my_item = new Item();
 
 $my_item->name = "Table";
 
-echo $my_item->getName();
+// echo $my_item->code;
 
 echo "<br />";
 
@@ -15,4 +15,4 @@ $my_book = new Book();
 $my_book->name = "Learning Python";
 $my_book->author = "Trong Nghia";
 
-echo $my_book->getName();
+echo $my_book->getCode();
