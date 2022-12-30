@@ -1,17 +1,23 @@
 <?php
-require 'includes/db.php';
+require 'class/Database.php';
 require 'includes/auth.php';
+
 session_start();
-$conn = getDB();
+
+$db = new Database();
+$conn = $db->getConn();
+
 $sql = "SELECT * 
         FROM blogs
         ORDER BY Published_at;";
-$results = mysqli_query($conn, $sql);
+
+$results = $conn->query($sql);
+
 if ($results === false) {
-    echo mysqli_error($conn);
+    var_dump($conn->errorInfo());
 }
 else {
-    $articles = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
