@@ -1,8 +1,9 @@
 <?php
-require 'includes/db.php';
+require 'class/Database.php';
 require 'includes/article.php';
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConn();
 
 if (isset($_GET['id'])) {
     $article = getArticle($conn, $_GET['id']);
@@ -13,9 +14,7 @@ if (isset($_GET['id'])) {
 
 <?php require 'includes/header.php'; ?>
 
-<?php if ($article === null): ?>
-    <p>Article not found.</p>
-<?php else: ?>
+<?php if ($article): ?>
     <article>
         <h2><?= htmlspecialchars($article["Title"]); ?></h2>
         <p><?= htmlspecialchars($article["Content"]); ?></p>
@@ -24,9 +23,8 @@ if (isset($_GET['id'])) {
     <a href="edit_article.php?id=<?=$article["Id"] ?>">Edit</a> &nbsp;
     <a href="delete_article.php?id=<?=$article["Id"] ?>">Delete</a>
 
-    <!-- <form action="delete_article.php?id=<?=$article["Id"] ?>" method="post">
-        <button type="submit">Delete</button>
-    </form> -->
+<?php else: ?>
+    <p>Article not found.</p>
 <?php endif; ?>
 
 <?php require 'includes/footer.php'; ?>

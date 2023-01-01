@@ -10,18 +10,13 @@
 function getArticle($conn, $id, $columns='*') {
     $sql = "SELECT $columns 
         FROM blogs
-        WHERE Id = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    if ($stmt === false) {
-        echo mysqli_error($conn);
-    }
-    else {
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        if (mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
+        WHERE Id = :id";
+    $stmt = $conn->prepare($sql);
 
-            return mysqli_fetch_array($result, MYSQLI_ASSOC);
-        }
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 
