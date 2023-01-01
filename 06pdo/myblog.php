@@ -13,12 +13,8 @@ $sql = "SELECT *
 
 $results = $conn->query($sql);
 
-if ($results === false) {
-    var_dump($conn->errorInfo());
-}
-else {
-    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
-}
+$articles = $results->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <?php require 'includes/header.php'; ?>
