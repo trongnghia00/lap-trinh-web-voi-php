@@ -16,12 +16,12 @@ if (isset($_GET['id'])) {
 
 <?php if ($article): ?>
     <article>
-        <h2><?= htmlspecialchars($article["Title"]); ?></h2>
-        <p><?= htmlspecialchars($article["Content"]); ?></p>
+        <h2><?= htmlspecialchars($article->Title); ?></h2>
+        <p><?= htmlspecialchars($article->Content); ?></p>
     </article>
 
-    <a href="edit_article.php?id=<?=$article["Id"] ?>">Edit</a> &nbsp;
-    <a href="delete_article.php?id=<?=$article["Id"] ?>">Delete</a>
+    <a href="edit_article.php?id=<?=$article->Id ?>">Edit</a> &nbsp;
+    <a href="delete_article.php?id=<?=$article->Id ?>">Delete</a>
 
 <?php else: ?>
     <p>Article not found.</p>
