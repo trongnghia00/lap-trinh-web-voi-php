@@ -1,5 +1,6 @@
 <?php
 require 'class/Database.php';
+require 'class/Article.php';
 require 'includes/auth.php';
 
 session_start();
@@ -7,13 +8,7 @@ session_start();
 $db = new Database();
 $conn = $db->getConn();
 
-$sql = "SELECT * 
-        FROM blogs
-        ORDER BY Published_at;";
-
-$results = $conn->query($sql);
-
-$articles = $results->fetchAll(PDO::FETCH_ASSOC);
+$articles = Article::getAll($conn);
 
 ?>
 

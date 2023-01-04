@@ -1,12 +1,12 @@
 <?php
 require 'class/Database.php';
-require 'includes/article.php';
+require 'class/Article.php';
 
 $db = new Database();
 $conn = $db->getConn();
 
 if (isset($_GET['id'])) {
-    $article = getArticle($conn, $_GET['id']);
+    $article = Article::getByID($conn, $_GET['id']);
 } else {
     $article = null;
 }
