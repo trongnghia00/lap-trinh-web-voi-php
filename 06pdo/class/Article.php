@@ -9,6 +9,7 @@ class Article
     public $Title;
     public $Content;
     public $Published_at;
+
     /**
      * Get all articles
      * @param object $conn Connection to DB
@@ -45,5 +46,19 @@ class Article
         if ($stmt->execute()) {
             return $stmt->fetch();
         }
+    }
+
+    public function update($conn) {
+        $sql = "UPDATE blogs 
+                SET Title=:title, Content=:content, Published_at=:published_at 
+                WHERE Id = :id;";
+        $stmt = $conn->prepare($sql);
+        
+        $stmt->bindValue(':title', $this->Title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $this->Content, PDO::PARAM_STR);
+        $stmt->bindValue(':published_at', $this->Published_at, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 }
