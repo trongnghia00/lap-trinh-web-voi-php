@@ -9,6 +9,7 @@ class Article
     public $Title;
     public $Content;
     public $Published_at;
+    public $errors = [];
 
     /**
      * Get all articles
@@ -48,17 +49,47 @@ class Article
         }
     }
 
+    /**
+     * Update article
+     * @param object $conn Connection to DB
+     * 
+     * @return boolean True if update successful, False otherwise
+     */
     public function update($conn) {
-        $sql = "UPDATE blogs 
-                SET Title=:title, Content=:content, Published_at=:published_at 
-                WHERE Id = :id;";
-        $stmt = $conn->prepare($sql);
-        
-        $stmt->bindValue(':title', $this->Title, PDO::PARAM_STR);
-        $stmt->bindValue(':content', $this->Content, PDO::PARAM_STR);
-        $stmt->bindValue(':published_at', $this->Published_at, PDO::PARAM_STR);
-        $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
+        if ($this->validate()) {
+            $sql = "UPDATE blogs 
+                    SET Title=:title, Content=:content, Published_at=:published_at 
+                    WHERE Id = :id;";
+            $stmt = $conn->prepare($sql);
+            
+            $stmt->bindValue(':title', $this->Title, PDO::PARAM_STR);
+            $stmt->bindValue(':content', $this->Content, PDO::PARAM_STR);
+            $stmt->bindValue(':published_at', $this->Published_at, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
 
-        return $stmt->execute();
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Validate the article properties
+     * 
+     * @return boolean True if current properties are valid, False otherwise
+     */
+    protected function validate() {
+        if ($this->Title == '') {
+            $this->errors[] = 'Title is required';
+        }
+        if ($this->Content == '') {
+            $this->errors[] = 'Content is required';
+        }
+        if ($this->Published_at == '') {
+            $this->errors[] = 'Published_at is required';
+        } else {
+            $this->Published_at = date("Y-m-d H:i:s", strtotime($this->Published_at));
+        }
+        return empty($this->errors);
     }
 }

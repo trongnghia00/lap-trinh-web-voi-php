@@ -1,7 +1,6 @@
 <?php
 require 'class/Database.php';
 require 'class/Article.php';
-require 'includes/article.php';
 
 $db = new Database();
 $conn = $db->getConn();
@@ -20,15 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->Content = $_POST["Content"];
     $article->Published_at = $_POST["Published_at"];
 
-    $errors = validateArticle($article->Title, $article->Content, $article->Published_at);
-
-    if (empty($errors)) {
-        $article->Published_at = date("Y-m-d H:i:s", strtotime($article->Published_at));
-        
-        if ($article->update($conn)) {
-            header("Location: article.php?id={$article->Id}");
-            exit;
-        }
+    if ($article->update($conn)) {
+        header("Location: article.php?id={$article->Id}");
+        exit;
     }
 }
 
