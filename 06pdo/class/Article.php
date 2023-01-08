@@ -92,4 +92,21 @@ class Article
         }
         return empty($this->errors);
     }
+
+    /**
+     * Delete current article
+     * 
+     * @param object $conn Connection to DB
+     * 
+     * @return boolean True if delete successful, False otherwise
+     */
+    public function delete($conn) {
+        $sql = "DELETE FROM blogs 
+                WHERE Id = :id;";
+        $stmt = $conn->prepare($sql);
+        
+        $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }

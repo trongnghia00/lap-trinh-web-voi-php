@@ -1,14 +1,13 @@
 <?php
-require 'includes/db.php';
-require 'includes/article.php';
+require 'class/Database.php';
+require 'class/Article.php';
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConn();
 
 if (isset($_GET['id'])) {
-    $article = getArticle($conn, $_GET['id'], "Id");
-    if ($article) {
-        $id = $_GET['id'];
-    } else {
+    $article = Article::getByID($conn, $_GET['id']);
+    if (! $article) {
         die("article not found");
     }
 } else {
@@ -16,23 +15,9 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sql = "DELETE FROM blogs 
-            WHERE Id = ?;";
-    $stmt = mysqli_prepare($conn, $sql);
-
-    if ($stmt === false) {
-    echo mysqli_error($conn);
-    }
-    else {
-        mysqli_stmt_bind_param($stmt, "i", $id);
-
-        if (mysqli_stmt_execute($stmt)) {
-                            
-            header("Location: myblog.php");
-            exit;
-        } else {
-            echo mysqli_stmt_error($stmt);
-        }
+    if ($article->delete($conn)) {
+        header("Location: myblog.php");
+        exit;
     }
 }
 
@@ -42,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Delete Article</h2>
 
-<form action="delete_article.php?id=<?=$article["Id"] ?>" method="post">
+<form action="delete_article.php?id=<?=$article->Id ?>" method="post">
     <p>Are you sure ?</p>
     <button type="submit">Delete</button>
-    <a href="article.php?id=<?=$article["Id"] ?>">Cancel</a>
+    <a href="article.php?id=<?=$article->Id ?>">Cancel</a>
 </form>
 
 <?php require 'includes/footer.php'; ?>
