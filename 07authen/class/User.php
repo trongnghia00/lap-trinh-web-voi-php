@@ -30,7 +30,7 @@ class User
         $stmt->execute();
 
         if ($user = $stmt->fetch()) {
-            return ($user->password == $password);
+            return (password_verify($password, $user->password));
         }
     }
 }
