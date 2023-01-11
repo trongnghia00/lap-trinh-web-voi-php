@@ -16,9 +16,21 @@ class User
      * @param string $username Username
      * @param string $password Password
      * 
-     * @return bool True if authenticate successful, False otherwise
+     * @return bool True if authenticate successful, Null otherwise
      */
-    public static function authenticate($username, $password) {
-        return $username == 'nghia' && $password == 'secret';
+    public static function authenticate($conn, $username, $password) {
+        $sql = "SELECT *
+                FROM user
+                WHERE username = :username";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+
+        $stmt->execute();
+
+        if ($user = $stmt->fetch()) {
+            return ($user->password == $password);
+        }
     }
 }

@@ -1,10 +1,15 @@
 <?php
 require 'class/User.php';
+require 'class/Database.php';
 
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (User::authenticate($_POST['username'], $_POST['password']))  {
+
+    $db = new Database();
+    $conn = $db->getConn();
+
+    if (User::authenticate($conn, $_POST['username'], $_POST['password']))  {
         session_regenerate_id(true);
         $_SESSION['logged_in'] = true;
         header("Location: myblog.php");
