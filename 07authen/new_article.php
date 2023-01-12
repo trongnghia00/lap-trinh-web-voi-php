@@ -1,11 +1,11 @@
 <?php
 require 'class/Database.php';
 require 'class/Article.php';
-require 'includes/auth.php';
+require 'class/Auth.php';
 
 session_start();
 
-if (! isLoggedIn()) {
+if (! Auth::isLoggedIn()) {
     die('Unauthorised');
 }
 
