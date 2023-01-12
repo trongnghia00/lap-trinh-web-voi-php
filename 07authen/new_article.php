@@ -1,9 +1,5 @@
 <?php
-require 'class/Database.php';
-require 'class/Article.php';
-require 'class/Auth.php';
-
-session_start();
+require 'includes/init.php';
 
 if (! Auth::isLoggedIn()) {
     die('Unauthorised');

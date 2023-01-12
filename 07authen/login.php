@@ -1,8 +1,5 @@
 <?php
-require 'class/User.php';
-require 'class/Database.php';
-
-session_start();
+require 'includes/init.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

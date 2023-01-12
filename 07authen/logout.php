@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'includes/init.php';
 
 $_SESSION = array();
 
