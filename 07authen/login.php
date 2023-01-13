@@ -6,8 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = require 'includes/db.php';
 
     if (User::authenticate($conn, $_POST['username'], $_POST['password']))  {
-        session_regenerate_id(true);
-        $_SESSION['logged_in'] = true;
+        Auth::login();
         header("Location: myblog.php");
     } else {
         $error = "Login incorrect.";
