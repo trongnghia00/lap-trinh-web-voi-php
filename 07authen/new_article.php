@@ -12,8 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->Content = $_POST["Content"];
     $article->Published_at = $_POST["Published_at"];
 
-    $db = new Database();
-    $conn = $db->getConn();
+    $conn = require 'includes/db.php';
 
     if ($article->create($conn)) {
         header("Location: article.php?id={$article->Id}");
