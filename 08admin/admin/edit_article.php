@@ -31,5 +31,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Edit Article</h2>
 
-<?php require '../includes/form_article.php'; ?>
+<?php require 'includes/form_article.php'; ?>
 <?php require '../includes/footer.php'; ?>

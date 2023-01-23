@@ -1,5 +1,5 @@
 <?php
-require 'includes/init.php';
+require '../includes/init.php';
 
 Auth::requireLogin();
 
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->Content = $_POST["Content"];
     $article->Published_at = $_POST["Published_at"];
 
-    $conn = require 'includes/db.php';
+    $conn = require '../includes/db.php';
 
     if ($article->create($conn)) {
         header("Location: article.php?id={$article->Id}");
@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <h2>New Article</h2>
 
 <?php require 'includes/form_article.php'; ?>
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>
