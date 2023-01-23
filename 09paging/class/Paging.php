@@ -4,6 +4,9 @@ class Paging
     public $limit;
     public $offset;
 
+    public $previous;
+    public $next;
+
     /**
      * Constructor
      * 
@@ -20,6 +23,11 @@ class Paging
                 'min_range' => 1
             ]
         ]);
+
+        if ($page > 1) {
+            $this->previous = $page - 1;
+        }
+        $this->next = $page + 1;
 
         $this->offset = $articles_per_page * ($page - 1);
     }

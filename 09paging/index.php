@@ -36,6 +36,21 @@ $articles = Article::getPage($conn, $paging->limit, $paging->offset);
             </li>
         <?php endforeach; ?>
     </ul>
+
+    <nav>
+        <ul>
+            <li>
+                <?php if ($paging->previous) : ?>
+                    <a href="?page=<?= $paging->previous ?>">Previous</a>
+                <?php else : ?>
+                    Previous
+                <?php endif; ?>
+            </li>
+            <li>
+                <a href="?page=<?= $paging->next ?>">Next</a>
+            </li>
+        </ul>
+    </nav>
 <?php endif; ?>
         
 <?php require 'includes/footer.php'; ?>
