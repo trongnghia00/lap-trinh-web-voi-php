@@ -13,7 +13,7 @@ class Paging
      * @param integer $page Page Number
      * @param integer $articles_per_page Number articles per page
      */
-    public function __construct($page, $articles_per_page)
+    public function __construct($page, $articles_per_page, $total_articles)
     {
         $this->limit = $articles_per_page;
 
@@ -27,7 +27,12 @@ class Paging
         if ($page > 1) {
             $this->previous = $page - 1;
         }
-        $this->next = $page + 1;
+
+        $total_pages = ceil($total_articles / $articles_per_page);
+
+        if ($page < $total_pages) {
+            $this->next = $page + 1;
+        }
 
         $this->offset = $articles_per_page * ($page - 1);
     }

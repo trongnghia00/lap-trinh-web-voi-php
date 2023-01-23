@@ -3,19 +3,11 @@ require 'includes/init.php';
 
 $conn = require 'includes/db.php';
 
-// if (isset($_GET['page'])) {
-//     $page = $_GET['page'];
-// } else {
-//     $page = 1;
-// }
-
-// $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
-
 $page = $_GET['page'] ?? 1;
 
 $articles_per_page = 4;
 
-$paging = new Paging($page, $articles_per_page);
+$paging = new Paging($page, $articles_per_page, Article::getTotal($conn));
 
 $articles = Article::getPage($conn, $paging->limit, $paging->offset);
 
@@ -47,7 +39,11 @@ $articles = Article::getPage($conn, $paging->limit, $paging->offset);
                 <?php endif; ?>
             </li>
             <li>
-                <a href="?page=<?= $paging->next ?>">Next</a>
+                <?php if ($paging->next) : ?>
+                    <a href="?page=<?= $paging->next ?>">Next</a>
+                <?php else : ?>
+                    Next
+                <?php endif; ?>
             </li>
         </ul>
     </nav>

@@ -159,4 +159,16 @@ class Article
             return false;
         }
     }
+
+    /**
+     * Get a count of total number of articles
+     * 
+     * @param object $conn Connection to DB
+     * 
+     * @return integer total number of articles
+     */
+    public static function getTotal($conn) 
+    {
+        return $conn->query('SELECT COUNT(*) FROM blogs')->fetchColumn();
+    }
 }
