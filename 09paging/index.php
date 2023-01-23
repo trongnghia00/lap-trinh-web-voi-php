@@ -3,8 +3,12 @@ require 'includes/init.php';
 
 $conn = require 'includes/db.php';
 
-// $articles = Article::getAll($conn);
-$articles = Article::getPage($conn, 3, 6);
+$page = 3;
+$articles_per_page = 4;
+
+$paging = new Paging($page, $articles_per_page);
+
+$articles = Article::getPage($conn, $paging->limit, $paging->offset);
 
 ?>
 
