@@ -1,7 +1,9 @@
 <?php
-require 'includes/init.php';
+require '../includes/init.php';
 
-$conn = require 'includes/db.php';
+Auth::requireLogin();
+
+$conn = require '../includes/db.php';
 
 if (isset($_GET['id'])) {
     $article = Article::getByID($conn, $_GET['id']);
@@ -25,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <h2>Edit Article</h2>
 
-<?php require 'includes/form_article.php'; ?>
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/form_article.php'; ?>
+<?php require '../includes/footer.php'; ?>
