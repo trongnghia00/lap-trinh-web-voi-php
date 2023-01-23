@@ -3,7 +3,16 @@ require 'includes/init.php';
 
 $conn = require 'includes/db.php';
 
-$page = 3;
+// if (isset($_GET['page'])) {
+//     $page = $_GET['page'];
+// } else {
+//     $page = 1;
+// }
+
+// $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+
+$page = $_GET['page'] ?? 1;
+
 $articles_per_page = 4;
 
 $paging = new Paging($page, $articles_per_page);
