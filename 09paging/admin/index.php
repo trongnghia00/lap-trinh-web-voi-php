@@ -5,7 +5,13 @@ Auth::requireLogin();
 
 $conn = require '../includes/db.php';
 
-$articles = Article::getAll($conn);
+$page = $_GET['page'] ?? 1;
+
+$articles_per_page = 6;
+
+$paging = new Paging($page, $articles_per_page, Article::getTotal($conn));
+
+$articles = Article::getPage($conn, $paging->limit, $paging->offset);
 
 ?>
 
@@ -31,6 +37,8 @@ $articles = Article::getAll($conn);
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php require '../includes/paging.php' ?>
 
 <?php endif; ?>
         

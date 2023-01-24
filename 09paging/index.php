@@ -29,24 +29,7 @@ $articles = Article::getPage($conn, $paging->limit, $paging->offset);
         <?php endforeach; ?>
     </ul>
 
-    <nav>
-        <ul>
-            <li>
-                <?php if ($paging->previous) : ?>
-                    <a href="?page=<?= $paging->previous ?>">Previous</a>
-                <?php else : ?>
-                    Previous
-                <?php endif; ?>
-            </li>
-            <li>
-                <?php if ($paging->next) : ?>
-                    <a href="?page=<?= $paging->next ?>">Next</a>
-                <?php else : ?>
-                    Next
-                <?php endif; ?>
-            </li>
-        </ul>
-    </nav>
+    <?php require 'includes/paging.php' ?>
 <?php endif; ?>
         
 <?php require 'includes/footer.php'; ?>
