@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_FILES)) {
             throw new Exception('Invalid upload.');
         }
-        
+
         switch ($_FILES['file']['error']) {
             case UPLOAD_ERR_OK :
                 break;
@@ -35,6 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             default :
                 throw new Exception('An error occurred.');
         }
+
+        if ($_FILES['file']['size'] > 1000000) {
+            throw new Exception('File is too large');
+        }
+        
     } catch (Exception $e) {
         echo $e->getMessage();
     }
