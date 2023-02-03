@@ -48,6 +48,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception('Invalid file type');
         }
 
+        $pathinfo = pathinfo($_FILES["file"]["name"]);
+        $filename = $pathinfo['filename'];
+        $filename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $filename);
+        $filename .= '.' . $pathinfo['extension'];
+
+        $dest = "../uploads/" . $filename;
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
+            echo "File uploaded successfull.";
+        } else {
+            throw new Exception("Unable to move uploaded file.");
+        }
+
     } catch (Exception $e) {
         echo $e->getMessage();
     }
