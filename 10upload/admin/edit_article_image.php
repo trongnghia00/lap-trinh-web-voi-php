@@ -51,9 +51,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pathinfo = pathinfo($_FILES["file"]["name"]);
         $filename = $pathinfo['filename'];
         $filename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $filename);
-        $filename .= '.' . $pathinfo['extension'];
 
-        $dest = "../uploads/" . $filename;
+        $fullname = $filename . '.' . $pathinfo['extension'];
+
+        $dest = "../uploads/" . $fullname;
+
+        $i = 1;
+        while (file_exists($dest)) {
+            $fullname = $filename . "-$i." . $pathinfo['extension'];
+            $dest = "../uploads/" . $fullname;
+            $i++;
+        }
+
         if (move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
             echo "File uploaded successfull.";
         } else {
