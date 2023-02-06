@@ -9,6 +9,7 @@ class Article
     public $Title;
     public $Content;
     public $Published_at;
+    public $image_file;
     public $errors = [];
 
     /**
@@ -170,5 +171,25 @@ class Article
     public static function getTotal($conn) 
     {
         return $conn->query('SELECT COUNT(*) FROM blogs')->fetchColumn();
+    }
+
+    /**
+     * Update the image file property
+     * 
+     * @param object $conn Connection to DB
+     * @param string $filename The filename of the image file
+     * 
+     * @return bool True is was successful, False otherwise 
+     */
+    public function setImageFile($conn, $filename) {
+        $sql = "UPDATE blogs
+                SET image_file = :image_file
+                WHERE Id = :id";
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
+        $stmt->bindValue(':image_file', $filename, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 }

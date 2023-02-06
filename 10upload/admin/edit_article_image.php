@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pathinfo = pathinfo($_FILES["file"]["name"]);
         $filename = $pathinfo['filename'];
         $filename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $filename);
+        $filename = mb_substr($filename, 0, 200);
 
         $fullname = $filename . '.' . $pathinfo['extension'];
 
@@ -64,7 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
-            echo "File uploaded successfull.";
+            if ($article->setImageFile($conn, $fullname)) {
+                header("Location: article.php?id=" . $article->Id);
+            }
         } else {
             throw new Exception("Unable to move uploaded file.");
         }
@@ -82,6 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Edit Article Image</h2>
 
 <form method="post" enctype="multipart/form-data">
+    <?php if ($article->image_file) : ?>
+        <img src="../uploads/<?= $article->image_file ?>" />
+    <?php endif; ?>
+
     <div>
         <label for="file">Image file</label>
         <input type="file" name="file" id="file" />
