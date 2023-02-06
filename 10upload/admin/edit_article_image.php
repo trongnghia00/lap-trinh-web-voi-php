@@ -1,5 +1,4 @@
 <?php
-// phpinfo();
 require '../includes/init.php';
 
 Auth::requireLogin();
@@ -16,7 +15,6 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    var_dump($_FILES);
 
     try {
         if (empty($_FILES)) {
@@ -65,15 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
+            $prev_image = $article->image_file;
+
             if ($article->setImageFile($conn, $fullname)) {
-                header("Location: article.php?id=" . $article->Id);
+                if ($prev_image) {
+                    unlink("../uploads/$prev_image");
+                }
+
+                header("Location: edit_article_image.php?id=" . $article->Id);
             }
         } else {
             throw new Exception("Unable to move uploaded file.");
         }
 
     } catch (Exception $e) {
-        echo $e->getMessage();
+        $error = $e->getMessage();
     }
     
 }
@@ -87,6 +91,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form method="post" enctype="multipart/form-data">
     <?php if ($article->image_file) : ?>
         <img src="../uploads/<?= $article->image_file ?>" />
+        <a href="delete_article_image.php?id=<?= $article->Id ?>">Delete</a>
+    <?php endif; ?>
+
+    <?php if (isset($error)) : ?>
+        <p><?= $error ?></p>
     <?php endif; ?>
 
     <div>

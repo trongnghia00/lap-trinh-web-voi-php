@@ -188,7 +188,7 @@ class Article
         $stmt = $conn->prepare($sql);
 
         $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
-        $stmt->bindValue(':image_file', $filename, PDO::PARAM_STR);
+        $stmt->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 
         return $stmt->execute();
     }
