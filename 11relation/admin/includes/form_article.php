@@ -20,5 +20,20 @@ if (! empty($article->errors)): ?>
         <label for="Published_at">Published at</label>
         <input type="datetime-local" name="Published_at" id="published_at" value="<?= $article->Published_at ?>"/>
     </div>
+    <fieldset>
+        <legend>Categories</legend>
+        <?php foreach ($categories as $category): ?>
+            <div>
+                <input type="checkbox" name="category[]" value="<?= $category['id'] ?>" id="category<?= $category['id'] ?>" 
+                    <?php 
+                        if (in_array($category['id'], $category_ids)) :
+                            echo 'checked';
+                        endif;
+                    ?> 
+                />
+                <label for="category<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></label>
+            </div>
+        <?php endforeach; ?>
+    </fieldset>
     <button type="submit">Save</button>
 </form>
