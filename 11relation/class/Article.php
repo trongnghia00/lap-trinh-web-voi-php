@@ -50,6 +50,14 @@ class Article
         }
     }
 
+    /**
+     * Get the article record with categories
+     * 
+     * @param object $conn Connection to DB
+     * @param integer $id the article ID
+     * 
+     * @return array The article data with categories
+     */
     public static function getWithCategories($conn, $id) {
         $sql = "SELECT blogs.*, category.name as category_name FROM blogs
                 LEFT JOIN blog_category
@@ -61,6 +69,26 @@ class Article
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the article's categories
+     * 
+     * @param object $conn Connection to DB
+     * 
+     * @return array The categories data
+     */
+    public function getCategories($conn) {
+        $sql = "SELECT category.* FROM category
+                JOIN blog_category
+                ON category.id = blog_category.category_id
+                WHERE blog_category.blog_id = :id";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $this->Id, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

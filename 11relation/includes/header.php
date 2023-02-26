@@ -1,5 +1,5 @@
 <?php
-$homeUrl = "/lap-trinh-web-voi-php/10upload/";
+$homeUrl = "/lap-trinh-web-voi-php/11relation/";
 ?>
 <!Doctype html>
 <html>
