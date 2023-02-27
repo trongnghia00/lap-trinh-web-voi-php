@@ -6,7 +6,7 @@ Auth::requireLogin();
 $conn = require '../includes/db.php';
 
 if (isset($_GET['id'])) {
-    $article = Article::getByID($conn, $_GET['id']);
+    $article = Article::getWithCategories($conn, $_GET['id']);
 } else {
     $article = null;
 }
@@ -16,18 +16,26 @@ if (isset($_GET['id'])) {
 
 <?php if ($article): ?>
     <article>
-        <h2><?= htmlspecialchars($article->Title); ?></h2>
+        <h2><?= htmlspecialchars($article[0]['Title']); ?></h2>
 
-        <?php if ($article->image_file) : ?>
-            <img src="../uploads/<?= $article->image_file ?>" />
+        <?php if ($article[0]['category_name']) : ?>
+            <p>Categories: 
+                <?php foreach ($article as $ar) : ?>
+                    <?= htmlspecialchars($ar['category_name']) ?>
+                <?php endforeach; ?>
+            </p>
         <?php endif; ?>
 
-        <p><?= htmlspecialchars($article->Content); ?></p>
+        <?php if ($article[0]['image_file']) : ?>
+            <img src="uploads/<?= $article[0]['image_file'] ?>" />
+        <?php endif; ?>
+        
+        <p><?= htmlspecialchars($article[0]['Content']); ?></p>
     </article>
 
-    <a href="edit_article.php?id=<?=$article->Id ?>">Edit</a> &nbsp;
-    <a href="delete_article.php?id=<?=$article->Id ?>">Delete</a> &nbsp;
-    <a href="edit_article_image.php?id=<?=$article->Id ?>">Edit Image</a> &nbsp;
+    <a href="edit_article.php?id=<?=$article[0]['Id'] ?>">Edit</a> &nbsp;
+    <a href="delete_article.php?id=<?=$article[0]['Id'] ?>">Delete</a> &nbsp;
+    <a href="edit_article_image.php?id=<?=$article[0]['Id'] ?>">Edit Image</a> &nbsp;
 
 <?php else: ?>
     <p>Article not found.</p>
