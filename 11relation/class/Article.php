@@ -152,6 +152,9 @@ class Article
      * @return void
      */
     public function setCategories($conn, $ids) {
+        $sql = "DELETE FROM blog_category WHERE blog_id = {$this->Id}";
+        $conn->query($sql);
+        
         if ($ids) {
             $sql = "INSERT IGNORE INTO blog_category (blog_id, category_id) 
                     VALUES ";
