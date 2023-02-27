@@ -22,7 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->Content = $_POST["Content"];
     $article->Published_at = $_POST["Published_at"];
 
+    $category_ids = $_POST['category'] ?? [];
+
     if ($article->update($conn)) {
+        $article->setCategories($conn, $category_ids);
         header("Location: article.php?id={$article->Id}");
         exit;
     }

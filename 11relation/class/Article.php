@@ -144,6 +144,27 @@ class Article
     }
 
     /**
+     * Set article categories
+     * 
+     * @param object $conn Connection to DB
+     * @param array $ids Category ids
+     * 
+     * @return void
+     */
+    public function setCategories($conn, $ids) {
+        if ($ids) {
+            $sql = "INSERT IGNORE INTO blog_category (blog_id, category_id) 
+                    VALUES ({$this->Id}, :category_id)";
+            $stmt = $conn->prepare($sql);
+
+            foreach ($ids as $id) {
+                $stmt->bindValue(':category_id', $id);
+                $stmt->execute();
+            }
+        }
+    }
+
+    /**
      * Validate the article properties
      * 
      * @return boolean True if current properties are valid, False otherwise
