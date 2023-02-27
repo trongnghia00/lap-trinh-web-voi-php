@@ -154,13 +154,23 @@ class Article
     public function setCategories($conn, $ids) {
         if ($ids) {
             $sql = "INSERT IGNORE INTO blog_category (blog_id, category_id) 
-                    VALUES ({$this->Id}, :category_id)";
-            $stmt = $conn->prepare($sql);
+                    VALUES ";
+            
+            $values = [];
 
             foreach ($ids as $id) {
-                $stmt->bindValue(':category_id', $id);
-                $stmt->execute();
+                $values[] = "({$this->Id}, ?)";
             }
+
+            $sql .= implode(", ", $values);
+
+            $stmt = $conn->prepare($sql);
+
+            foreach ($ids as $i => $id) {
+                $stmt->bindValue($i + 1, $id, PDO::PARAM_INT);  
+            }
+
+            $stmt->execute();
         }
     }
 
