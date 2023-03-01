@@ -104,11 +104,16 @@ class Article
      * @return array An associative array of a page of article
      */
     public static function getPage($conn, $limit, $offset) {
-        $sql = "SELECT * 
+        $sql = "SELECT a.*, category.name AS category_name
+                FROM (SELECT * 
                 FROM blogs
                 ORDER BY Published_at
                 LIMIT :limit
-                OFFSET :offset;";
+                OFFSET :offset) AS a
+                LEFT JOIN blog_category
+                ON a.Id = blog_category.blog_id
+                LEFT JOIN category
+                ON blog_category.category_id = category.id";
         $stmt = $conn->prepare($sql);
 
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -116,7 +121,25 @@ class Article
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $articles = [];
+
+        $previous_id = null;
+
+        foreach ($results as $row) {
+            $article_id = $row['Id'];
+            if ($article_id != $previous_id) {
+                $row['cat_names'] = [];
+                $articles[$article_id] = $row;
+            }
+
+            $articles[$article_id]['cat_names'][] = $row['category_name'];
+
+            $previous_id = $article_id;
+        }
+
+        return $articles;
     }
 
     /**

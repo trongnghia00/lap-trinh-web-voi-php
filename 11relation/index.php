@@ -23,6 +23,13 @@ $articles = Article::getPage($conn, $paging->limit, $paging->offset);
             <li>
                 <article>
                     <h2><a href="article.php?id=<?= htmlspecialchars($article["Id"]); ?>"><?= $article['Title'] ?></a></h2>
+                    <?php if ($article['cat_names']) : ?>
+                        <p>Category: 
+                            <?php foreach ($article['cat_names'] as $name) : ?>
+                                <?= htmlspecialchars($name) ?>
+                            <?php endforeach; ?>
+                        </p>
+                    <?php endif; ?>
                     <p><?= htmlspecialchars($article['Content']); ?></p>
                 </article>
             </li>
