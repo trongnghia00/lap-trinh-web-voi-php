@@ -27,14 +27,14 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
 
         <?php if ($article[0]['image_file']) : ?>
-            <img src="uploads/<?= $article[0]['image_file'] ?>" />
+            <img src="../uploads/<?= $article[0]['image_file'] ?>" />
         <?php endif; ?>
         
         <p><?= htmlspecialchars($article[0]['Content']); ?></p>
     </article>
 
     <a href="edit_article.php?id=<?=$article[0]['Id'] ?>">Edit</a> &nbsp;
-    <a href="delete_article.php?id=<?=$article[0]['Id'] ?>">Delete</a> &nbsp;
+    <a class="delete" href="delete_article.php?id=<?=$article[0]['Id'] ?>">Delete</a> &nbsp;
     <a href="edit_article_image.php?id=<?=$article[0]['Id'] ?>">Edit Image</a> &nbsp;
 
 <?php else: ?>

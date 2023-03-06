@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form method="post" enctype="multipart/form-data">
     <?php if ($article->image_file) : ?>
         <img src="../uploads/<?= $article->image_file ?>" />
-        <a href="delete_article_image.php?id=<?= $article->Id ?>">Delete</a>
+        <a class="delete" href="delete_article_image.php?id=<?= $article->Id ?>">Delete</a>
     <?php endif; ?>
 
     <?php if (isset($error)) : ?>
