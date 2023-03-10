@@ -9,17 +9,3 @@ $("a.delete").on("click", function(e) {
         frm.submit();
     }
 });
-
-$("#formArticle").validate({
-    rules: {
-        Title: {
-            required: true
-        },
-        Content: {
-            required: true
-        },
-        Published_at: {
-            required: true
-        }
-    }
-});

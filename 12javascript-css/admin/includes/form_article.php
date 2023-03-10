@@ -7,7 +7,7 @@ if (! empty($article->errors)): ?>
     </ul>
 <?php endif; ?>
 
-<form method="post" id="formArticle">
+<form method="post">
     <div>
         <label for="Title">Title</label>
         <input name="Title" id="title" placeholder="Article Title" value="<?= htmlspecialchars($article->Title); ?>" />
