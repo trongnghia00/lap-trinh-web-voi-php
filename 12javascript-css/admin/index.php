@@ -23,7 +23,7 @@ $articles = Article::getPage($conn, $paging->limit, $paging->offset);
     <p>No articles found.</p>
 <?php else: ?>
     
-    <table>
+    <table class="table">
         <thead>
             <th>Title</th>
         </thead>
