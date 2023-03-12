@@ -23,6 +23,7 @@ $homeUrl = "/lap-trinh-web-voi-php/13email/";
                 <?php else : ?>
                     <li class="nav-item"><a class="nav-link" href="<?= $homeUrl ?>login.php">Login</a></li>
                 <?php endif; ?>
+                <li class="nav-item"><a class="nav-link" href="<?= $homeUrl ?>contact.php">Contact</a></li>
             </ul>
         </nav>
 
