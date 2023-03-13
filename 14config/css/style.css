@@ -1,0 +1,8 @@
+ul#index {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#index a {
+    text-decoration: none;
+}
