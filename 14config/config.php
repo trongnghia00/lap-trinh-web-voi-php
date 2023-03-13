@@ -8,3 +8,5 @@ define('SMTP_HOST', 'smtp.hostinger.com');
 define('SMTP_USER', 'testing@nghiadnt.cf');
 define('SMTP_PASS', '******');
 define('SMTP_PORT', 465);
+
+define('DEBUG', false);
